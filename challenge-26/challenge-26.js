@@ -1,4 +1,7 @@
-/*
+(function() {
+  "use strict";
+
+  /*
 O desafio dessa semana é criar uma mini library (biblioteca) para
 reutilizarmos nossos códigos quando fizermos manipulação de DOM!
 
@@ -19,13 +22,46 @@ selecionados.
 Dica: olhe os erros que acontecem no console, e vá resolvendo um a um.
 Só passe para o próximo problema quando tiver resolvido o anterior :)
 */
-// ?
+  // ?
 
-var $a = new DOM('[data-js="link"]');
-$a.on('click', function(e) {
-  e.preventDefault();
-  console.log('clicou');
-});
+  // construtor
+  function DOM(elements) {
+    this.element = this.getDOMElements(elements); // todos os elmentos do DOM selecionados
+  }
 
-console.log('Elementos selecionados:', $a.get());
-console.log('$a é filho de body?', $a.get()[0].parentNode === document.body);
+  // metodo para selecionar os elementos
+  DOM.prototype.getDOMElements = function getDOMElements(elements) {
+    return document.querySelectorAll(elements);
+  };
+
+  // metodos
+  // adiciona eventos
+  DOM.prototype.on = function on(eventType, callback) {
+    Array.prototype.forEach.call(this.element, element => {
+      element.addEventListener(eventType, callback, false);
+    });
+  };
+
+  // remove eventos
+  DOM.prototype.off = function off(eventType, callback) {
+    Array.prototype.forEach.call(this.element, element => {
+      element.removeEventListener(eventType, callback, false);
+    });
+  };
+
+  DOM.prototype.get = function get() {
+    return this.element;
+  };
+
+  var $a = new DOM('[data-js="link"]');
+
+  $a.on("click", function handleClick(e) {
+    e.preventDefault();
+    console.log("clicou");
+
+    $a.off("click", handleClick);
+  });
+
+  console.log("Elementos selecionados:", $a.get());
+  console.log("$a é filho de body?", $a.get()[0].parentNode === document.body);
+})();
