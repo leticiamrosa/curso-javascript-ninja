@@ -14,7 +14,7 @@ desafio.
 */
 // ?
 
-console.log( 'Times que estão participando do campeonato:', teams );
+console.log("Times que estão participando do campeonato:", teams);
 
 /*
 Crie uma função chamada `showTeamPosition` com as seguintes características:
@@ -63,8 +63,4 @@ Crie uma função chamada `convertToHex`, com as seguintes características:
 /*
 Tente mostrar o hexadecimal de 8 cores diferentes usando a função criada acima.
 */
-<<<<<<< HEAD
 // ?
-=======
-// ?
->>>>>>> challenge-07
